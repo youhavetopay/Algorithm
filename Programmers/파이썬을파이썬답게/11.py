@@ -1,13 +1,10 @@
 import itertools
 
 def solution(mylist):
-    answer = []
 
-    for i in mylist:
-        answer.append(str(i))
-    print(list(map(''.join, itertools.permutations(answer))))
+    return sorted(list(map(list, itertools.permutations(mylist))))
 
 
-list1 = [1, 2, 3, 4]
+list1 = [1, 2, 3]
 
-solution(list1)
+print(solution(list1))
