@@ -12,3 +12,12 @@ point = Coord(1, 2)
 
 print(point)
 
+
+## 무엇이랑 비교해도 크다고 하는 변수
+
+maxValue = float('inf')
+if maxValue > 100000000:
+    print('adwdwa')
+
+## 음수도 가능
+maxValue = float('-inf')
