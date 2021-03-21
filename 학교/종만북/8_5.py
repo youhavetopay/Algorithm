@@ -1,28 +1,56 @@
-# c = int(input())
+dp = []
 
-# answers = []
+minvalue = float('-inf')
 
-# for i in range(c):
-#     n, m = map(int, input().split())
+def solve(indA, indB):
+    if N <= indA or M <=indB:
+        return -1
+    ret = dp[indA + 1][indB + 1];
 
-#     nList = list(map(int, input().split()))
-#     mList = list(map(int, input().split()))
+    if ret != -1:
+        return ret
 
-#     jlis = len(set(nList + mList))
+    ret = 0
 
-#     answers.append(jlis)
+    a = nList[indA]
+    b = mList[indB]
 
-# for i in answers:
-#     print(i)
+    if indA == -1:
+        a = minvalue
+    if indB == -1:
+        b = minvalue
 
-n, m = map(int, input().split())
-nList = list(map(int, input().split()))
-mList = list(map(int, input().split()))
+    maxNum = max(a,b)
 
-dp = [0]
+    for i in range(indA+1,N):
+        if maxNum >= nList[i] : continue
 
-if nList[0] > mList[0]:
-    dp[0] = mList[0]
-else:
-    dp[0] = nList[0]
+        ret = max(ret, solve(i, indB)+1)
+    
+    for i in range(indB+1,M):
+        if maxNum >= mList[i] : continue
 
+        ret = max(ret, solve(indA, i)+1)
+    
+    dp[indA + 1][indB + 1] = ret
+    return dp[indA + 1][indB + 1]
+
+
+c = int(input())
+
+answers = []
+
+for x in range(c):
+    N, M = map(int, input().split())
+
+    nList = list(map(int, input().split()))
+    mList = list(map(int, input().split()))
+
+
+    dp = [[-1 for _ in range(M+1)] for _ in range(N+1)]
+
+    answers.append(solve(-1, -1))
+
+for i in answers:
+    print(i)
+print(dp)
