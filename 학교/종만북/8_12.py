@@ -12,4 +12,7 @@ else:
     for i in range(3, value+1):
         dp_list[i] = (dp_list[i-1] + dp_list[i-2]) 
 
-    print((dp_list[value]-dp_list[math.floor((value/2))]-dp_list[math.floor((value-2)/2)])%1000000007)
+    if value%2==1:
+        print((dp_list[value]-dp_list[math.floor((value/2))])%1000000007)
+    else:
+        print((dp_list[value]-dp_list[math.floor((value/2))]-dp_list[math.floor((value-2)/2)])%1000000007)
