@@ -13,10 +13,3 @@ else:
         dp_list[i] = (dp_list[i-1] + dp_list[i-2]) 
 
     print((dp_list[value]-dp_list[math.floor((value/2))]-dp_list[math.floor((value-2)/2)])%1000000007)
-
-
-
-# n=int(input())
-# a,b=1,1
-# for i in range(n):a,b=b,a+b  ㄷㄷ
-# print(a%10007) 4

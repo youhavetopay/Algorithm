@@ -4,7 +4,7 @@ numList = ''
 def classify(a, b):
     
     M = numList[a:b]
-    print(M)
+    print('print M ', M)
     if M == str(M[0]*len(M)):
         return 1
 
@@ -20,7 +20,7 @@ def classify(a, b):
         if diff == -1 or diff == 1: 
             return 2
         else:
-            return
+            return 5
     
     alternating = True
     for i in range(len(M)):
@@ -39,21 +39,27 @@ def memorize(begin):
     
     if begin >= len(numList):
         return 0
-    ret = dp[begin]
 
-    if ret != -1:
-        return ret
-    
+    if dp[begin] != -1:
+        return dp[begin]
+
     ret = maxValue
 
     for L in range(3, 6):
+        
         if begin + L <= len(numList):
-            ret = min(ret, classify(begin, begin + L)+memorize(begin + L))
+            print('begin  if in   ',begin, L, begin+L)
+            new_ret = memorize(begin + L)+classify(begin, begin + L)
+            print(ret, new_ret)
+            ret = min(ret, new_ret)
+        else:
+            break
     
     dp[begin] = ret
 
     return dp[begin]
 
 numList = input()
-
+print(len(numList))
 print(memorize(0))
+
