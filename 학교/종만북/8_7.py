@@ -49,7 +49,7 @@ def memorize(begin):
         
         if begin + L <= len(numList):
             print('begin  if in   ',begin, L, begin+L)
-            new_ret = memorize(begin + L)+classify(begin, begin + L)
+            new_ret = memorize(begin + L) + classify(begin, begin + L)
             print(ret, new_ret)
             ret = min(ret, new_ret)
         else:
@@ -60,6 +60,6 @@ def memorize(begin):
     return dp[begin]
 
 numList = input()
-print(len(numList))
+
 print(memorize(0))
 
