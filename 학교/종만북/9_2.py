@@ -84,4 +84,4 @@ setRes(0,0)
 
 print(maxW, len(res))
 for temp in res:
-    print(temp)
+    print(temp) 4
