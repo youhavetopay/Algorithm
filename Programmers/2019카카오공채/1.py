@@ -4,27 +4,35 @@
 내가 한거 
 테스트케이스22번 시간초과 ㅜㅜ..
 4000ms정도 나와야 하지만 8000ms이상 나옴
+1000ms으로 줄임ㅋ
 """
 def solution1(N, stages):
     answer = []
-    stageInfo = [[0,0,x+1] for x in range(N+1)]
-
-    for i in stages:
-        for j in range(i):
-            stageInfo[j][1] += 1
-            if j < i-1:
-                stageInfo[j][0] += 1
-        
-    print(stageInfo)
+    personsCount = len(stages)
+    firstCount = stages.count(1)
+    stageInfo = [[firstCount,personsCount]]
     dicStageInfo = {}
     
-    for i in range(N):
-        if stageInfo[i][1] == 0:
-            dicStageInfo[stageInfo[i][2]] = 0
-        else:
-            dicStageInfo[stageInfo[i][2]] = (stageInfo[i][1] - stageInfo[i][0]) / stageInfo[i][1]
+    if firstCount == 0:
+        dicStageInfo[1] = 0
+    else:
+        dicStageInfo[1] =stages.count(1) / personsCount
+
+    for i in range(2, N+1):
+        stagesCount = stages.count(i)
         
+        nowPerson = stageInfo[i-2][1] - stageInfo[i-2][0]
+        tempList = [stagesCount, nowPerson]
+        stageInfo.append(tempList)
+
+        if stagesCount == 0:
+            dicStageInfo[i] = 0
+        else:
+            dicStageInfo[i] = tempList[0] / tempList[1]
+
+    print(stageInfo) 
     print(dicStageInfo)
+    
     tempList5 = sorted(dicStageInfo.items(), key= lambda x: x[1], reverse=True)
     print(tempList5)
     for temp in tempList5:
@@ -57,6 +65,6 @@ def solution(N, stages):
         r_ans.append(temp[0])
     return r_ans
 
-print(solution(4, [4,4,4,4,4]))
+# print(solution1(4, [4,4,4,4,4]))
 
-print(solution(5, [2, 1, 2, 6, 2, 4, 3, 3]))
+print(solution1(5, []))
