@@ -18,9 +18,10 @@ answers = []
 
 for card in checkCards:
     try:
-        temp = cardValue[card]
-        
+        temp = myCard[card]
+        answers.append(temp)
     except KeyError:
-        
+        answers.append(0)
     
-    
+for num in answers:
+    print(num, end=" ")
