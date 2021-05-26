@@ -1,7 +1,7 @@
 import itertools
 
 def solution(mylist):
-
+    # 조합 
     return sorted(list(map(list, itertools.combinations(mylist,2))))
 
 
