@@ -1,18 +1,12 @@
-import java.util.Scanner;
 
 import java.util.*;
 import java.io.*;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.lang.reflect.Array;
-import java.nio.Buffer;
-import java.util.ArrayList;
 /**
  * 
  * 백준 6603문제
  * 백트래킹?? --> 가지치기(안될것 같은건 지우기)
- * 
+ * 백준에 답 제출할땐 클래스 이름 Main으로 바꾸기!!
  */
 public class Rotto {
 
