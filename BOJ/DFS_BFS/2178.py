@@ -1,12 +1,17 @@
 # 미로찾기
 
-import sys
-
-N, M = map(int, sys.stdin.readline().split())
+n, m = map(int, input().split())
 
 board = []
 
-for i in range(N):
-    board.append(str(sys.stdin.readline())[:-1])
+for _ in range(n):
+    tempList = list(input())
+    board.append(tempList)
 
-print(board)
+queue = []
+
+nowLoc = [0,0]
+
+answer = 1
+while nowLoc != [n-1,m-1]:
+    
