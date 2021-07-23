@@ -3,6 +3,8 @@ def removeDuplicates(self, nums) -> int:
     
     # 88ms 
 
+    # 이방법 말고 set으로 하는 방법도 있음
+
     dic = {}
         
     for i in nums:
