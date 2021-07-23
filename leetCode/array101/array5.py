@@ -1,7 +1,17 @@
 # 중복된 원소 제거 
 def removeDuplicates(self, nums) -> int:
     
-    pass
+    # 88ms 
+
+    dic = {}
+        
+    for i in nums:
+        dic[i] = 1
+    
+    for i, v in enumerate(list(dic.keys())):
+        nums[i] = v
+    
+    return len(dic.keys())
     
 
 
