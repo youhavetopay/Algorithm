@@ -1,41 +1,199 @@
-class BinNode(): # <-- 이진트리
+class Node(): # <-- 노드
 
    def __init__(self, value) -> None:
+       self.index = None
        self.value = value
        self.left = None
        self.right = None
 
-root = BinNode(1)
+
+class BinTree(): # <-- 이진 트리
+
+    def __init__(self, rootNode):
+        self.rootNode = rootNode
+        self.nodeCount = 1
+        rootNode.index = 1
+
+    # 전위 순회  C - L - R
+    def preOrderStart(self):
+
+        def preOrder(node):
+            print([node.index, node.value], end=" ")
+
+            if node.left != None:
+                preOrder(node.left)
+            if node.right != None:
+                preOrder(node.right)
+
+        preOrder(self.rootNode)
 
 
-def addNode(value):
-    global root
-   
-    point = None
-    preNode = root
+    # 중위 순회  L - C - R
+    def inOrderStart(self):
 
-    if value < root.value:
-        point = root.left
-    else:
-        point = root.right
+        def inOrder(node):
+            if node.left != None:
+                inOrder(node.left)
 
-    while point != None:
-        preNode = point
+            print([node.index, node.value], end=" ")
 
-        if value < point.value:
-            point = point.left
-        else:
-            point = point.right
+            if node.right != None:
+                inOrder(node.right)
+
+        inOrder(self.rootNode)
     
-    if value < preNode.value:
-        preNode.left = BinNode(value)
-    else:
-        preNode.right = BinNode(value)
+
+    # 후위 순회 L - R - C
+    def postOrderStart(self):
+
+        def postOrder(node):
+            if node.left != None:
+                postOrder(node.left)
+            
+            if node.right != None:
+                postOrder(node.right)
+            
+            print([node.index, node.value], end=" ")
+        
+        postOrder(self.rootNode)
+
+
+    # 노드 추가
+    def addNode(self, node):
+        point = self.rootNode
+        preNode = self.rootNode
+        
+        while point != None:
+            preNode = point
+
+            if point.value <= node.value:
+                point = point.right
+            else:
+                point = point.left
+
+        if preNode.value <= node.value:
+            preNode.right = node
+        else:
+            preNode.left = node
+
+        self.nodeCount += 1
+        node.index = self.nodeCount
+    
+    # 노드 삭제 노답 ㅋㅋ
+    def deleteNode(self, value:int):
+        point = self.rootNode
+        preNode = self.rootNode
+        print(point.value, value)
+        
+        while point.value != value:
+            preNode = point
+            if point.left == None and point.right == None:
+                print('1 해당 값 없음')
+                return
+
+            if point.right != None and point.value <= value:
+                point = point.right
+            elif point.left != None and point.value > value:
+                point = point.left
+            elif (point.left == None and point.value > value) or (point.right == None and point.value <= value):
+                print('2 해당 값 없음', point.value, point.left, point.right)
+                return
+
+
+        if preNode.left == point:
+            # 삭제하는 노드의 자식노드가 없을 때
+            if point.left == None and point.right == None:
+                preNode.left = None
+                del point
+                return
+            # 삭제하는 노드의 왼쪽 자식노드는 없고 오른쪽은 있을때
+            elif point.left == None:
+                preNode.left = point.right
+                del point
+                return
+            # 삭제하는 노드의 왼쪽 자식노드는 있고 오른쪽은 없을때
+            elif point.rigth == None:
+                preNode.left = point.left
+                del point
+                return
+            # 삭제하는 노드의 자식이 양쪽 다 있을 때
+            else:
+                # 연결하는 기준은 맘대로 해도 상관 없음 
+                preFillNode = point
+                fillNode = point.left # <-- (나는 왼쪽껄로 함)
+
+                while fillNode.right != None:
+                    preFillNode = fillNode
+                    fillNode = fillNode.right
+                
+                preNode.left = fillNode
+                fillNode.right = point.right
+                fillNode.left = point.left
+                preFillNode.right = None
+
+                del point
+                return
+                
+
+        else:
+            # 삭제하는 노드의 자식노드가 없을 때
+            if point.left == None and point.right == None:
+                preNode.right = None
+                del point
+                return
+            # 삭제하는 노드의 왼쪽 자식노드는 없고 오른쪽은 있을때
+            elif point.left == None:
+                preNode.right = point.right
+                del point
+                return
+            # 삭제하는 노드의 왼쪽 자식노드는 있고 오른쪽은 없을때
+            elif point.right == None:
+                preNode.right = point.left
+                del point
+                return
+            # 삭제하는 노드의 자식이 양쪽 다 있을 때
+            else:
+                # 연결하는 기준은 맘대로 해도 상관 없음 
+                preFillNode = point
+                fillNode = point.left # <-- (나는 왼쪽껄로 함)
+
+                while fillNode.right != None:
+                    preFillNode = fillNode
+                    fillNode = fillNode.right
+                
+                preNode.right = fillNode
+                fillNode.right = point.right
+                fillNode.left = point.left
+                preFillNode.right = None
+
+                del point
+                return
+
+
+tree = BinTree(Node(50))
+
+tree.addNode(Node(25))
+tree.addNode(Node(27))
+tree.addNode(Node(51))
+tree.addNode(Node(57))
 
 
 
+# tree.inOrderStart()
+# print()
 
+# tree.postOrderStart()
+tree.addNode(Node(78))
+tree.addNode(Node(67))
+tree.addNode(Node(65))
+tree.addNode(Node(88))
 
+tree.addNode(Node(53))
+tree.addNode(Node(52))
+tree.addNode(Node(56))
+tree.preOrderStart()
+print()
+tree.deleteNode(57)
 
-
-
+tree.preOrderStart()
+print()
