@@ -85,9 +85,9 @@ class BinTree(): # <-- 이진 트리
         preNode = self.rootNode
         print(point.value, value)
         
-        while point.value != value:
+        while point.value != value:  # value값을 가지는 노드 찾아갈때까지
             preNode = point
-            if point.left == None and point.right == None:
+            if point.left == None and point.right == None:  # 값을 찾지 못했는데 자식노드가 없을때
                 print('1 해당 값 없음')
                 return
 
@@ -96,11 +96,12 @@ class BinTree(): # <-- 이진 트리
             elif point.left != None and point.value > value:
                 point = point.left
             elif (point.left == None and point.value > value) or (point.right == None and point.value <= value):
+                # 값을 찾지 못했으나 해당하는 방향에 자식노드가 없을 때
                 print('2 해당 값 없음', point.value, point.left, point.right)
                 return
 
 
-        if preNode.left == point:
+        if preNode.left == point: # 삭제할려는 노드가 왼쪽일 때
             # 삭제하는 노드의 자식노드가 없을 때
             if point.left == None and point.right == None:
                 preNode.left = None
@@ -118,9 +119,9 @@ class BinTree(): # <-- 이진 트리
                 return
             # 삭제하는 노드의 자식이 양쪽 다 있을 때
             else:
-                # 연결하는 기준은 맘대로 해도 상관 없음 
+                # 연결하는 기준은 맘대로 해도 상관 없음  
                 preFillNode = point
-                fillNode = point.left # <-- (나는 왼쪽껄로 함)
+                fillNode = point.left # <-- (나는 왼쪽껄로 함) : 왼쪽 노드의 자식노드중 가장 큰 값을 가지는 노드로 대체
 
                 while fillNode.right != None:
                     preFillNode = fillNode
@@ -135,7 +136,7 @@ class BinTree(): # <-- 이진 트리
                 return
                 
 
-        else:
+        else: # 삭제할려는 노드가 오른쪽일 때
             # 삭제하는 노드의 자식노드가 없을 때
             if point.left == None and point.right == None:
                 preNode.right = None
@@ -191,9 +192,14 @@ tree.addNode(Node(88))
 tree.addNode(Node(53))
 tree.addNode(Node(52))
 tree.addNode(Node(56))
+
+print('전위')
 tree.preOrderStart()
 print()
+print()
+print('57 값을 가지는 노드 삭제')
 tree.deleteNode(57)
-
+print()
+print('전위')
 tree.preOrderStart()
 print()
