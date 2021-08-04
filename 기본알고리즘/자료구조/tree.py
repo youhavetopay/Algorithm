@@ -197,6 +197,12 @@ print('전위')
 tree.preOrderStart()
 print()
 print()
+
+print('중위')
+tree.inOrderStart()
+print()
+print()
+
 print('57 값을 가지는 노드 삭제')
 tree.deleteNode(57)
 print()
