@@ -2,7 +2,7 @@ class Node():
     def __init__(self):
         self.keys = []
         self.keysLen = 0
-        self.points = []
+        self.points = [None, None]
 
         pass
 
@@ -60,11 +60,13 @@ class Btree():
         point = self.root
         pNode = self.root
 
+
+        # 추가하고 싶은 위치까지 이동하기
         while findValue not in point.keys:
 
             index = -1
 
-            for i, v in range(point.keys):
+            for i, v in enumerate(point.keys):
                 if v < findValue:
                     index = i
         
@@ -83,13 +85,13 @@ class Btree():
             for i in range(findValueIndex):
                 leftNode.keys.append(point.keys[i])
                 leftNode.keysLen += 1
-            leftNode.points = [None] * (leftNode.keysLen+1)
+            leftNode.points = point.points[:findValueIndex]
 
             rightNode = Node()
             for i in range(findValueIndex+1, len(point.keys)):
                 rightNode.keys.append(point.keys[i])
                 rightNode.keysLen += 1
-            rightNode.points = [None] * (rightNode.keysLen+1)
+            rightNode.points = point.points[findValueIndex:]
 
             # root노드와 연결
             newRoot.points = [leftNode, rightNode]
@@ -101,7 +103,32 @@ class Btree():
             del point
 
         else:
-            print('adwawddwawd') 
+            pNodeIndex = -1
+
+            for i, v in enumerate(pNode.keys):
+                if v <= findValue:
+                    pNodeIndex = i
+
+            rightNode = Node()
+            
+
+            for v in range(findValueIndex + 1, point.keysLen):
+                rightNode.keys.append(point.keys[v])
+                rightNode.keysLen += 1
+            rightNode.points = [None] * (rightNode.keysLen + 1)
+
+            point.keys = point.keys[0:findValueIndex]
+            point.keysLen = len(point.keys)
+            point.points = [None] * (point.keysLen + 1)
+
+            pNode.keys.insert(pNodeIndex + 1, findValue)
+            pNode.keysLen += 1
+            pNode.points[pNodeIndex+1] = point
+            pNode.points.insert(pNodeIndex + 2, rightNode)
+
+            if pNode.keysLen >= self.maxchild:
+                self.division(pNode)
+                print('2단계 넘음')
 
         pass
 
@@ -111,8 +138,14 @@ myTree = Btree(3, 10)
 
 myTree.addNode(myTree.root, myTree.root, 5)
 myTree.addNode(myTree.root, myTree.root,20)
+myTree.addNode(myTree.root, myTree.root,21)
+myTree.addNode(myTree.root, myTree.root,22)
+myTree.addNode(myTree.root, myTree.root,23)
+myTree.addNode(myTree.root, myTree.root,24)
 
 print(myTree.root.keys)
-print(myTree.root.points[0].keys)
-print(myTree.root.points[1].keys)
-myTree.searchData(myTree.root, 20)
+for i in range(len(myTree.root.points)):
+    print(myTree.root.points[i].keys)
+
+print(myTree.root.points[0].points[0].keys)
+myTree.searchData(myTree.root, 24)
