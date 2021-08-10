@@ -79,7 +79,7 @@ class BinTree(): # <-- 이진 트리
         self.nodeCount += 1
         node.index = self.nodeCount
     
-    # 노드 삭제 노답 ㅋㅋ
+    # 노드 삭제 
     def deleteNode(self, value:int):
         point = self.rootNode
         preNode = self.rootNode

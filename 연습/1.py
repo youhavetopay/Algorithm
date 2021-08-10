@@ -26,3 +26,7 @@ for i in range(6):
     print(count)
 print(count, count2, count3)
 print(1575 * 5 + 3600)
+
+list1 = [1,2,3,4,5]
+
+print(list1[0:2], list1[3:])
