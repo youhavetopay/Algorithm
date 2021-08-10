@@ -61,7 +61,7 @@ class Btree():
         pNode = self.root
 
 
-        # 추가하고 싶은 위치까지 이동하기
+        # 분할하고 싶은 위치까지 이동하기
         while findValue not in point.keys:
 
             index = -1
@@ -85,13 +85,14 @@ class Btree():
             for i in range(findValueIndex):
                 leftNode.keys.append(point.keys[i])
                 leftNode.keysLen += 1
-            leftNode.points = point.points[:findValueIndex]
-
+            leftNode.points = point.points[:findValueIndex+1]
+            print(point.points[:findValueIndex+1])
+            print(point.points[findValueIndex+1:])
             rightNode = Node()
             for i in range(findValueIndex+1, len(point.keys)):
                 rightNode.keys.append(point.keys[i])
                 rightNode.keysLen += 1
-            rightNode.points = point.points[findValueIndex:]
+            rightNode.points = point.points[findValueIndex+1:]
 
             # root노드와 연결
             newRoot.points = [leftNode, rightNode]
@@ -142,10 +143,16 @@ myTree.addNode(myTree.root, myTree.root,21)
 myTree.addNode(myTree.root, myTree.root,22)
 myTree.addNode(myTree.root, myTree.root,23)
 myTree.addNode(myTree.root, myTree.root,24)
+myTree.addNode(myTree.root, myTree.root,25)
+myTree.addNode(myTree.root, myTree.root,26)
+myTree.addNode(myTree.root, myTree.root,27)
+
+print(myTree.root.points[1].points[2].keys)
+
 
 print(myTree.root.keys)
 for i in range(len(myTree.root.points)):
     print(myTree.root.points[i].keys)
 
-print(myTree.root.points[0].points[0].keys)
+
 myTree.searchData(myTree.root, 24)
