@@ -48,8 +48,3 @@ for tc in range(test_case):
                     board[nextY][nextX] = board[nowLoc[1]][nowLoc[0]] + 1
                     
                     queue.append([nextX, nextY])
-        
-        # for t in board:
-        #     print(t)
-
-
