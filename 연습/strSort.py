@@ -1,17 +1,21 @@
-data = input()
+# data = input()
 
-result = []
+# result = []
 
-intValueSum = 0
+# intValueSum = 0
 
-for value in data:
-    if value.isalpha():
-        result.append(value)
-    else:
-        intValueSum += int(value)
+# for value in data:
+#     if value.isalpha():
+#         result.append(value)
+#     else:
+#         intValueSum += int(value)
 
-result.sort()
+# result.sort()
 
-result.append(str(intValueSum))
+# result.append(str(intValueSum))
 
-print(''.join(result))
+# print(''.join(result))
+
+a = int(5)
+
+print(a)
