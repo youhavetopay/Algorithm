@@ -1,23 +1,28 @@
 import sys
 input = sys.stdin.readline
 
-def findBoardNumber(start, x1,y1, x2, y2, block):
-    now_start = 0
-    
-    
-    return now_start
-
-
 N, r, c = map(int, input().split(' '))
 
 # r = y 0부터
 # c = x 0부터
 answer = 0
 
-block = int((2 ** (N)))
+while N >= 0:
 
-print(findBoardNumber(0, 0, 0, c, r, int(block/2)))
+    N -= 1
 
-# print(block)
+    if 2 ** (N) > r and 2 ** (N) > c: # 1분면
+        pass
+    elif 2 ** (N) > r and 2 ** (N) <= c: # 2분면
+        answer += (2**N) * (2**N) * 1
+        c -= (2**N)
+    elif 2 ** (N) <= r and 2 ** (N) > c: # 3분면
+        answer += (2**N) * (2**N) * 2
+        r -= (2**N)
+    else:
+        answer += (2**N) * (2**N) * 3
+        r-= (2**N)
+        c -= (2**N)
 
-# print(answer)
+
+print(answer)
