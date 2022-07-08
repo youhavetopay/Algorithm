@@ -31,7 +31,6 @@ def findMaxStepValue():
 
             for i in range(3, step_count):
                 dp[i] = max(dp[i-3] + step[i-1] + step[i], dp[i-2] + step[i])
-                print(dp)
         
     print(dp[step_count-1])
     return
