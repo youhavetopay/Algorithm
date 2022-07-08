@@ -1,27 +1,20 @@
 def solution(clothes):
     myCloth = {}
-    count = 0
+    answer = 0
     for tempList in clothes:
         try:
-            myCloth[tempList[1]].append(tempList[0])
+            myCloth[tempList[1]] += 1
         
         except KeyError:
-            myCloth[tempList[1]] = [tempList[0]]
-        
-        count += 1
+            myCloth[tempList[1]] = 1
 
     coll = 1
-    for value in myCloth.values():
-        print(len(value))
-        coll *= len(value)
+    for key, value in myCloth.items():
+        coll *= value + 1
     
-    print(count)
-    answer = count
-
-    if coll == 1 or len(myCloth.keys()) == 1:
-        return answer
-    else:
-        return answer+coll
+   
+    answer = coll - 1
+    return answer
 
 
 
