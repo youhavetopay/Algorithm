@@ -1,8 +1,9 @@
 {
     "java.project.sourcePaths": [
+        "부스트캠프",
         "java공부",
         "BOJ/백트래킹",
-        "부스트캠프"
+        "SW_Academy/Test/water"
     ],
     "python.pythonPath": "C:\\Users\\IZONE\\AppData\\Local\\Programs\\Python\\Python36\\python.exe"
 }

@@ -25,7 +25,10 @@
 //System.out.println(var);		       				   // 문자열 1개 출력하는 예제
 //System.out.println(AB);		       				     // long 변수 1개 출력하는 예제
 /////////////////////////////////////////////////////////////////////////////////////////////
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Deque;
 import java.util.Scanner;
 import java.io.FileInputStream;
 
@@ -60,13 +63,13 @@ class Solution
 		{
 			int n = sc.nextInt();
 
-			ArrayList<ArrayList<Integer>> numberBoard = new ArrayList<>();
+			int[][] areaHeight = new int[n][];
 
 			int minValue = 999999;
 			int maxValue = -1;
 
 			for(int i=0; i<n; i++){
-				ArrayList<Integer> tempBoard = new ArrayList<>();
+				int[] tempBoard = new int[n];
 				for(int j=0; j<n; j++){
 					int number = sc.nextInt();
 					if(minValue > number){
@@ -75,12 +78,14 @@ class Solution
 					if(maxValue < number){
 						maxValue = number;
 					}
-					tempBoard.add(number);
+					tempBoard[j] = number;
 				}
-				numberBoard.add(tempBoard);
+				areaHeight[i] = tempBoard;
 			}
 
-			int answer = findMaxArea(numberBoard, minValue, maxValue, n);
+			System.out.println(areaHeight[0][0]);
+
+			int answer = findMaxArea(areaHeight, minValue, maxValue, n);
 
 			System.out.println("#"+test_case + " " +answer);
 			/////////////////////////////////////////////////////////////////////////////////////////////
@@ -92,23 +97,52 @@ class Solution
 		}
 	}
 
-	public static int findMaxArea(ArrayList<ArrayList<Integer>> numberBoard, int start, int end, int n){
+	public static int findMaxArea(int[][] areaHeight, int start, int end, int n){
 
 		int maxArea = 0;
-		ArrayList<ArrayList<Integer>> nowArea = numberBoard;
+		int[][] nowArea = areaHeight;
 
 		for(; start <= end; start++ ){
 			for(int i=0; i<n; i++){
 				for (int j = 0; j <n; j++){
-					int height = nowArea.get(i).get(j);
-					if(height <= start){
-						nowArea.
+					if (nowArea[i][j] <= start){
+						nowArea[i][j] = -1;
 					}
 				}
 			}
+
+
 		}
 
 
 		return maxArea;
+	}
+
+	public static int BFS(int[][] nowArea, int n){
+		int areaCount = 0;
+
+		Deque<int[]> queue = new ArrayDeque<>();
+		boolean[][] visit = new boolean[n][];
+		for (int i=0; i<n; i++){
+			boolean[] temp = new boolean[n];
+			Arrays.fill(temp, false);
+			visit[i] = temp;
+		}
+
+		while(queue.size() != 0){
+			int[] loc = queue.pollFirst();
+
+			int x = loc[0];
+			int y = loc[1];
+
+			if(x+1 < n && visit[y][x+1] == false){
+				int[] next = {x+1, y};
+				visit[y][x+1] = true;
+				queue.add(next);
+
+			}
+		}
+
+		return areaCount;
 	}
 }
