@@ -26,8 +26,6 @@
 //System.out.println(AB);		       				     // long 변수 1개 출력하는 예제
 /////////////////////////////////////////////////////////////////////////////////////////////
 import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Deque;
 import java.util.Scanner;
 import java.io.FileInputStream;
@@ -83,9 +81,7 @@ class Solution
 				areaHeight[i] = tempBoard;
 			}
 
-			System.out.println(areaHeight[0][0]);
-
-			int answer = findMaxArea(areaHeight, minValue, maxValue, n);
+			int answer = findMaxArea(areaHeight, 0, maxValue, n);
 
 			System.out.println("#"+test_case + " " +answer);
 			/////////////////////////////////////////////////////////////////////////////////////////////
@@ -111,6 +107,8 @@ class Solution
 				}
 			}
 
+			maxArea = Math.max(maxArea, BFS(areaHeight, n));
+
 
 		}
 
@@ -122,26 +120,59 @@ class Solution
 		int areaCount = 0;
 
 		Deque<int[]> queue = new ArrayDeque<>();
-		boolean[][] visit = new boolean[n][];
+		boolean[][] visit = new boolean[n][n];
 		for (int i=0; i<n; i++){
-			boolean[] temp = new boolean[n];
-			Arrays.fill(temp, false);
-			visit[i] = temp;
-		}
-
-		while(queue.size() != 0){
-			int[] loc = queue.pollFirst();
-
-			int x = loc[0];
-			int y = loc[1];
-
-			if(x+1 < n && visit[y][x+1] == false){
-				int[] next = {x+1, y};
-				visit[y][x+1] = true;
-				queue.add(next);
-
+			for(int j =0; j<n; j++){
+				visit[i][j] = false;
+				if(nowArea[i][j] == -1){
+					visit[i][j] = true;
+				}
+				
 			}
 		}
+		for(int i=0; i<n; i++){
+			for (int j=0; j<n; j++){
+				if (visit[i][j] == false){
+					int[] temp = {j, i};
+					queue.add(temp);
+
+					while(queue.size() != 0){
+						int[] loc = queue.pollFirst();
+			
+						int x = loc[0];
+						int y = loc[1];
+			
+						if(x+1 < n && visit[y][x+1] == false){ // 오른쪽
+							int[] next = {x+1, y};
+							visit[y][x+1] = true;
+							queue.add(next);
+						}
+			
+						if(x-1 >= 0 && visit[y][x-1] == false){ // 왼쪽
+							int[] next = {x-1, y};
+							visit[y][x-1] = true;
+							queue.add(next);
+						}
+			
+						if(y+1 < n && visit[y+1][x] == false){ // 위
+							int[] next = {x, y+1};
+							visit[y+1][x] = true;
+							queue.add(next);
+						}
+			
+						if(y-1 >= 0 && visit[y-1][x] == false){ // 아래
+							int[] next = {x, y-1};
+							visit[y-1][x] = true;
+							queue.add(next);
+						}
+			
+					}
+					areaCount += 1;
+
+				}
+			}
+		}
+		
 
 		return areaCount;
 	}
