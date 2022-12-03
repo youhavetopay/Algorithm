@@ -1,4 +1,4 @@
-from collections import deque
+from collections import defaultdict
 
 class BinNode():
     def __init__(self, data):
@@ -13,36 +13,50 @@ def topView(root):
     max_left = 0
     max_rigth = 0
 
-    queue = deque([root.info])
+    dict = defaultdict(list)
 
     
-    queue = findNode(queue, max_left, max_rigth, 0, root)
+    dict = findNode(dict, max_left, max_rigth, 0, root)
 
-    print()
-    print(' '.join(map(str, queue)))
+    print(dict)
+
+    data_list = []
+    flag = True
+
+    for key in sorted(list(dict.keys()), reverse=True):
+        if key < 0:
+            if flag:
+                data_list.append(root.info)
+                flag = False
+            data_list.append(sorted(dict[key], reverse=True)[0])
+        elif key > 0:
+            
+            data_list.append(sorted(dict[key])[0])
+        
+
+
+    print(' '.join(map(str, data_list)))
 
     return
 
-def findNode(queue, max_left, min_right, now_loc, now_node):
+def findNode(dict, max_left, min_right, now_loc, now_node):
 
     if now_loc > max_left:
-        queue.appendleft(now_node.info)
+        dict[now_loc].append(now_node.info)
         max_left = now_loc
     elif now_loc < min_right:
-        queue.append(now_node.info)
+        dict[now_loc].append(now_node.info)
         min_right = now_loc
 
 
     if now_node.left != None:
-        print(queue, now_loc, now_node.info, now_node.left.info)
-        queue = findNode(queue, max_left, min_right, now_loc + 1, now_node.left)
+        dict = findNode(dict, max_left, min_right, now_loc + 1, now_node.left)
     
     if now_node.right != None:
-        print(queue, now_loc, now_node.info, now_node.right.info, 'right')
-        queue = findNode(queue, max_left, min_right, now_loc - 1, now_node.right)
+        dict = findNode(dict, max_left, min_right, now_loc - 1, now_node.right)
 
 
-    return queue
+    return dict
 
 
 def test():
