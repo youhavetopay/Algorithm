@@ -9,16 +9,11 @@ class BinNode():
 def topView(root):
     #Write your code here
 
-    
     max_left = 0
     max_rigth = 0
-
     dict = defaultdict(list)
-
     
     dict = findNode(dict, max_left, max_rigth, 0, root)
-
-    print(dict)
 
     data_list = []
     flag = True
@@ -28,12 +23,11 @@ def topView(root):
             if flag:
                 data_list.append(root.info)
                 flag = False
-            data_list.append(sorted(dict[key], reverse=True)[0])
+            data_list.append(dict[key][-1])
         elif key > 0:
             
-            data_list.append(sorted(dict[key])[0])
+            data_list.append(dict[key][0])
         
-
 
     print(' '.join(map(str, data_list)))
 
