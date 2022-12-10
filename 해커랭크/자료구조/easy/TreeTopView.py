@@ -6,51 +6,51 @@ class BinNode():
         self.left = None
         self.right = None
 
-def topView(root):
-    #Write your code here
+from collections import defaultdict
 
+
+def topView(root):
     max_left = 0
     max_rigth = 0
-    dict = defaultdict(list)
+    dict_list = defaultdict(list)
     
-    dict = findNode(dict, max_left, max_rigth, 0, root)
+    dict_list = findNode(dict_list, max_left, max_rigth, 0, root)
 
     data_list = []
     flag = True
 
-    for key in sorted(list(dict.keys()), reverse=True):
+    # 키를 기준으로 정렬하기 
+    for key in sorted(list(dict_list.keys()), reverse=True):
         if key < 0:
-            if flag:
+            if flag: # root 노드 넣어주기
                 data_list.append(root.info)
                 flag = False
-            data_list.append(dict[key][-1])
+            data_list.append(dict_list[key][-1]) # 오른쪽 노드 넣어주기
         elif key > 0:
-            
-            data_list.append(dict[key][0])
+            data_list.append(dict_list[key][0]) # 왼쪽 노드 넣어주기
         
 
     print(' '.join(map(str, data_list)))
 
     return
 
-def findNode(dict, max_left, min_right, now_loc, now_node):
-
-    if now_loc > max_left:
-        dict[now_loc].append(now_node.info)
+def findNode(dict_list, max_left, min_right, now_loc, now_node):
+    if now_loc > max_left: # 현재 위치가 가장 왼쪽 일때
+        dict_list[now_loc].append(now_node.info)
         max_left = now_loc
-    elif now_loc < min_right:
-        dict[now_loc].append(now_node.info)
+    elif now_loc < min_right: # 현재 위치가 가장 오른쪽 일때
+        dict_list[now_loc].append(now_node.info)
         min_right = now_loc
 
 
-    if now_node.left != None:
-        dict = findNode(dict, max_left, min_right, now_loc + 1, now_node.left)
+    if now_node.left != None: # 왼쪽 자식 노드가 있다면 들어가기
+        dict_list = findNode(dict_list, max_left, min_right, now_loc + 1, now_node.left)
     
-    if now_node.right != None:
-        dict = findNode(dict, max_left, min_right, now_loc - 1, now_node.right)
+    if now_node.right != None: # 오른쪽 자식 노드가 있다면 들어가기
+        dict_list = findNode(dict_list, max_left, min_right, now_loc - 1, now_node.right)
 
 
-    return dict
+    return dict_list
 
 
 def test():
