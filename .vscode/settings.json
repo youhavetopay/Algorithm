@@ -1,10 +1,4 @@
 {
-    "java.project.sourcePaths": [
-        "부스트캠프",
-        "java공부",
-        "SW_Academy/Test/water",
-        "BOJ/백트래킹",
-        "SW_Academy/Test/DB"
-    ],
-    "python.pythonPath": "C:\\Users\\IZONE\\AppData\\Local\\Programs\\Python\\Python36\\python.exe"
+  "java.project.sourcePaths": ["부스트캠프\\2022 네이버파이넨셜"],
+  "python.pythonPath": "C:\\Users\\IZONE\\AppData\\Local\\Programs\\Python\\Python36\\python.exe"
 }
