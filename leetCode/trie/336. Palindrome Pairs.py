@@ -15,6 +15,7 @@ class Trie:
     def __init__(self) -> None:
         self.root = TrieNode()
     
+    # 이거는 static 같은 의미
     @staticmethod
     def is_palindrome(word: str) -> bool:
         return word[::] == word[::-1]
