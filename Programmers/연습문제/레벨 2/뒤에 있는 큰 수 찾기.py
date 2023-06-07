@@ -1,7 +1,7 @@
+from collections import deque
+
 def solution(numbers):
     answer = []
-
-
     stack = [[0, numbers[0]]]
 
     for i in range(1, len(numbers)):
@@ -13,15 +13,15 @@ def solution(numbers):
         stack.append([i, numbers[i]])
         print(stack, answer, i)
 
-    print(answer, stack)
-
-    while stack:
-        i, _ = stack.pop(0)
+    # print(answer, stack)
+    queue = deque(stack)
+    while queue:
+        i, _ = queue.popleft()
         answer.insert(i, -1)
 
     return answer
 
-print(solution([2, 3, 3, 5]))
+print(solution([9, 1, 5, 3, 6, 2]))
 
 [2, 3, 3, 5]
 
