@@ -88,6 +88,16 @@ for _ in range(T):
 # print(solution(N, sticker))
 
 def firstSolu():
+
+    '''
+        다른 사람 풀이
+        https://animoto1.tistory.com/entry/%EB%B0%B1%EC%A4%80-9465-%EC%8A%A4%ED%8B%B0%EC%BB%A4-%ED%8C%8C%EC%9D%B4%EC%8D%AC-Python
+
+        나랑 똑같은 방식인데
+        배열을 새로 만드는게 아니라
+        기존 입력받은 스티커 배열을 활용하심
+    '''
+
     T = int(input())
 
     for _ in range(T) :
@@ -97,7 +107,7 @@ def firstSolu():
         if n > 1 :
             dp[0][1] += dp[1][0]
             dp[1][1] += dp[0][0]
-            
+
         for i in range(2,N) :
             dp[0][i] += max(dp[1][i-1],dp[1][i-2])
             dp[1][i] += max(dp[0][i-1],dp[0][i-2])
