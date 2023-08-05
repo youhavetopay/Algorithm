@@ -125,3 +125,39 @@ def check(stack, x, y):
 #     return
 
 print(solution(10))
+
+def dfs(queen, n, row):
+    count = 0
+
+    if n == row:
+        return 1
+    
+    for col in range(n):
+        queen[row] = col
+
+        for x in range(row):
+            if queen[x] == queen[row]:
+                break
+
+            if abs(queen[x] - queen[row]) == (row - x):
+                break
+
+        else:
+            count += dfs(queen, n, row + 1)
+    
+    return count
+
+def firstSolu(n):
+
+    '''
+        다른 사람 풀이
+        https://bladejun.tistory.com/134
+
+        1차원 배열로 인덱스가 row이고 해당 값이 column 으로 해서
+        걍 row 당 하나씩 다 해보면서 같은 row에 있거나 대각선에 있다면 break 하는 방식으로 푸심
+
+        나보다 훨씬 간단한 풀이인듯,..
+    '''
+
+    queen = [0] * n
+    return dfs(queen, n, 0)
